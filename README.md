@@ -16,16 +16,21 @@ Alexander Chavez | achavezmontano@itba.edu.ar
 
 ## Objetivo    
   
-Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extraccióon, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.  
+Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extracción, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.  
+  
+
+## Objetivo 
+  
+![](./images/arquitectura.jpg)
   
   
 ## Resumen
 
 Se consultarán dos API's publicas de spotify, una con información de usuarios y sus playlist y otra con la información de las playlist perse.  
   
-En una primera instancia mediante un script de python (y con usuarios pre-seleccionados manualmente) se obtienen datos de los mismos que contienen las playlist que tengan creadas.  
+En una primera instancia y mediante un script de python (y con usuarios pre-seleccionados manualmente) se obtienen datos de los mismos que contienen las playlist que tengan creadas.  
   
-La salida del  response es almacenada en un csv (users_file.csv) sin tranformar, y subido a la base de datos SEMINARIO en el schema staging ( donde almacenaremos los csv en tablas sin transformar ).  
+La salida del response es almacenada en un csv (users_file.csv) sin tranformar, y subido a la base de datos SEMINARIO en el schema staging (donde almacenaremos los csv en tablas sin transformar).  
   
 Luego mediante Queries de SQL se ejecutan diferentes transformaciones para lograr extraer y estructurar de la tabla de staging de usuarios tanto los datos de los mismos como sus playlist.  
   
@@ -50,10 +55,6 @@ Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgre
     
 ## Infraestructura/arquitectura  
   
-  
-![](./images/arquitectura.jpg)
-  
-
   
 Nuestro trabajo simula una instalación de producción con múltiples containers en Docker.
 _docker-compose.yaml_ contiene las definiciones y configuraciones para los siguientes servicios:
