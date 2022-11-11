@@ -127,18 +127,20 @@ Grafos: [Networkx](https://networkx.org/).
 * El servicio de postgres que se encuentra en el docker compose está siendo utilizado por Airflow como BD para su propia metadata. Para aprovechar éste servicio decidimos usar la misma conexión y generar una BD adicional para nuestro proyecto. Nos conectamos a través de dbeaver a la BD de Airflow por única vez, y desde allí se crea la BD SEMINARIO y dentro de esta, el esquema de staging: 
 
 ![](./images/bd_seminario.jpg)
-  
+
+
+## Airflow    
   
 * Por única vez, en el webserver de Airflow se debe dar de alta la conexión a la BD generada:
   
 ![](./images/bd_airflow.jpg)
   
   
-## Airflow  
-  
 Usamos como orquestador a Airflow.  
-Con él, se elabora una secuencia de tareas que pueden ser monitoreadas y controladas desde la interfaz gráfica: [Airflow](http://localhost:8080).  
-El archivo _users_spotify_ contiene la creación/configuración de las tareas del DAGs (Directed acyclic graph) de Airflow.  
+  
+Con él, se elabora una secuencia de tareas que pueden ser monitoreadas y  
+controladas desde la interfaz gráfica: [Airflow](http://localhost:8080).  
+El único archivo _users_spotify.py_ contiene la creación/configuración de las tareas del DAGs (Directed acyclic graph) de Airflow.  
 
 ### DAG:
   
@@ -148,30 +150,53 @@ El archivo _users_spotify_ contiene la creación/configuración de las tareas de
   
 La secuencia de tareas es la siguiente:  
   
-create_tables >> api_extract_users >> insert_staging_users_file >> insert_users >> insert_playlists_users >> api_extract_playlist >> insert_staging_playlist_file >> insert_playlist_artist >> insert_traspuesta_artista_userid  
+create_tables >> api_extract_users >> insert_staging_users_file >> insert_users >> insert_playlists_users >> api_extract_playlist >> insert_staging_playlist_file >> insert_playlist_artist >> insert_traspuesta_artista_userid >> export_traspuesta_to_cvs_i
   
-* Creación de tablas:  A través de un _PostgresOperator_ accedemos a la carpeta dags/sql/ y creamos las tablas.  
-En _create_tables.sql_ se encuentra la creación de las dos tablas iniciales: _public.users_, _public.playlists_.  
+* create_tables:  A través de un _postgresOperator_ accedemos a la carpeta dags/sql/ y creamos las tablas.  
+En _create_tables.sql_ se encuentra la creación de las tablas: 
   
-* Extracción de usuarios: 
+Esquema _staging_ para almacenar los _csvs_ sin transformar, resultado de las llamadas a las APIs: 
   
-* Staging en _users_file.csv_: Seleccionamos algunos campos de usuarios.  
+staging.users_file  
+staging.playlist_file  
+
+Esquema _public_ para simular un entorno mas formal productivo y almacenar los datos transformados y finales:  
+  
+public.users  
+public.playlists  
+public.playlists_artists  
+public.traspuesta_artista_user (esta tabla es la preparada para hacer el input del Colab)  
+
+* api_extract_users: Es un _pythonOperator_ que ejecuta la primer llamada a la API de usuarios preseleccionados manualmente.  
+Queda como resultado el archivo _users_file.csv_.  
+  
+* insert_staging_users_file: Es un _postgresOperator_ que inserta el _users_file.csv_ en la tabla staging.users_file.
     
-* Inserción de info de usuarios: Traemos información de staging.users_file y la casteamos a public.users.  
-
-
-
-
-
+* insert_users: _postgresOperator_ que extrae información relevante de staging.users_file e insertamos en la tabla de usuarios.  
   
+* insert_playlists_users: _postgresOperator_ que extrae información relevante de la playlist de staging.users_file e insertamos en la tabla de playlist.  
+    
+* api_extract_playlist: Es un _pythonOperator_.  
+Toma de la BD los IDs de las playlist cargados previamente y ejecuta la segunda llamada a la API, en este caso de playlist.  
+Queda como resultado el archivo _playlist_file.csv_.
+    
+* insert_staging_playlist_file: Es un _postgresOperator_ que inserta el _playlist_file.csv_ en la tabla staging.playlist_file.  
+    
+* insert_playlist_artist: _postgresOperator_ que inserta en la tabla public.playlists_artists los IDs de las playlist y los artistas que la componen.  
+    
+* insert_traspuesta_artista_userid: _postgresOperator_ que inserta en la tabla public.traspuesta_artista_user los IDs de usuarios vinculados a los nombres de los artistas que se hayan encontrado en sus playlist.
   
-* _Insert playlist users_ 
+* export_traspuesta_to_cvs_i: Es un _pythonOperator_ que consulta la tabla public.traspuesta_artista_user y genera el export_colab.csv para ser el input del Colab.  
+  
+Disclaimer: Los operadores insert_staging_users_file insert_staging_playlist_file requieren de un copy manual vía linux:  
+  
+cp /dags/csv/users_file.csv postgres-db-volume
+cp /dags/csv/playlist_file.csv postgres-db-volume  
 
-* La tarea _api extract playlist_ llama a una función, _run_playlist_ que se conecta a la bd de postgres con la función _get_playlists_db_
-  
-  
-  
-  
+Se intentó hacer un "bash-operator" sin éxito que resuelva ésta copia de manera automatizada en Airflow.  
+Nos encontramos con problemas debido a que posiblemente se necesiten permisos de root para realizar ésta acción en el volúmen de postgres.  
+      
+      
 Sitios de interés: 
 
     * https://www.youtube.com/c/PeladoNerd  
