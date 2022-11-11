@@ -82,27 +82,8 @@ Grafos: [Networkx](https://networkx.org/).
 [La tabla final se obtiene desde la siguiente ruta:](dags/csv)
 
 [El colab se encuentra en el siguiente link:](https://colab.research.google.com/github/guillelencina/Trabajo_final_seminario/blob/master/red_spotify.ipynb#scrollTo=aazLisBb2CO-)
-
-* En primera instancia, se hace una segmentación de poblaciones de usuarios y artistas, por gustos y géneros musicales          respectivamente.  
-  
-* Como en todo dataset, hay limpieza de algunos datos que no son útiles para el análisis.  
-  
-* Luego alimentamos la bbdd y se consolida un dataset con la tabla en postgres.  
-  
-* Se hacen unos ajustes previos a la clusterización y luego iniciamos el ML con un _one hot encoder_ sobre la feature artista.  
-  
-* Luego, usamos k-means con cuatro clusters.  
-  
-* Se obtienen las etiquetas asignadas en lugar de los centroides y se mapean.  
-  
-* Aplicamos DBscan de con búsqueda de hiperparámetros.  
-  
-* También se incluye como alternativa para el algortitmo _affinity propagation_.  
-  
-* Por último, usamos grafos para visualizar y mostramos algunas métricas de los resultados.  
   
   
-
 ## Pasos para instalar
 
 1. Clonar repo: git clone https://github.com/guillelencina/seminario_final.git
