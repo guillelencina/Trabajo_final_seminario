@@ -103,7 +103,7 @@ Grafos: [Networkx](https://networkx.org/).
 
 4. Ejecutar una consola de Ubuntu.
 
-![](./images/ubuntu_console.jpg)
+![](./images/ubuntu_consola.jpg)
 
 
 5. Ingresar a la carpeta: cd seminario_final-master
@@ -118,6 +118,10 @@ Grafos: [Networkx](https://networkx.org/).
 * También los podés chequear en la interfaz gráfica de Docker.
 
 ![](./images/containers_running.jpg)
+
+
+
+## Configuraciones adicionales
 
 
 
