@@ -134,6 +134,33 @@ Grafos: [Networkx](https://networkx.org/).
 ![](./images/bd_airflow.jpg)
   
   
+## Airflow  
+  
+Usamos como orquestador a Airflow.  
+Con él, se elabora una secuencia de tareas que pueden ser monitoreadas y controladas desde la interfaz gráfica: [Airflow](http://localhost:8080).  
+El archivo _users_spotify_ contiene la creación/configuración de las tareas del DAGs (Directed acyclic graph) de Airflow.  
+
+### DAG:
+
+La secuencia de tareas es la siguiente:
+
+create_tables >> api_extract_users >> insert_staging_users_file >> insert_users >> insert_playlists_users >> api_extract_playlist >> insert_staging_playlist_file >> insert_playlist_artist >> insert_traspuesta_artista_userid
+
+* Creación de tablas:  A través de un _PostgresOperator_ accedemos a la carpeta dags/sql/ y creamos las tablas.  
+En _create_tables.sql_ se encuentra la creación de las dos tablas iniciales: _public.users_, _public.playlists_.  
+  
+* Extracción de usuarios: 
+
+* Staging en _users_file.csv_: Seleccionamos algunos campos de usuarios.  
+  
+* Inserción de info de usuarios: Traemos información de staging.users_file y la casteamos a public.users.  
+  
+* _Insert playlist users_ 
+
+* La tarea _api extract playlist_ llama a una función, _run_playlist_ que se conecta a la bd de postgres con la función _get_playlists_db_
+  
+  
+  
   
 Sitios de interés: 
 
