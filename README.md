@@ -61,7 +61,17 @@ _docker-compose.yaml_ contiene las definiciones y configuraciones para los sigui
 
     Una vez los containers estén en Running, podés ingresar desde acá -> [Airflow](http://localhost:8080)
 
-* Motor de base de datos postgres obtenida de la imagen postgres:13. 
+* Motor de base de datos postgres obtenida de la imagen postgres:13.  
+  
+---------------------------------------------------------------------------------------
+Pasos adicionales:  
+
+* Airflow tiene una BD por defecto. Se debe crear por primera vez la BD SEMINARIO y realizar la conexión manual a través de dbeaver: 
+
+![](./images/bd_seminario.jpg)
+
+
+---------------------------------------------------------------------------------------
 
 
 ## Pasos para instalar
