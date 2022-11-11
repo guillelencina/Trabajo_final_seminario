@@ -19,7 +19,7 @@ Alexander Chavez | achavezmontano@itba.edu.ar
 Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extracción, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.  
   
 
-## Objetivo 
+## Workflow 
   
 ![](./images/arquitectura.jpg)
   
