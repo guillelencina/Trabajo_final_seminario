@@ -29,7 +29,8 @@ def extract_data ():
         headers = {
             #"X-RapidAPI-Key": "c4d262eb60msh8ccfaa2c82311efp16ba53jsn09d3a0ac81f9",
             #"X-RapidAPI-Key": "66eeb3c0e6msh1496b538257ff74p154f1fjsnaa04326d626a",
-            "X-RapidAPI-Key": "96c00e4f36msh1047a4698f57499p101410jsn33304bf7ce59",
+            #"X-RapidAPI-Key": "96c00e4f36msh1047a4698f57499p101410jsn33304bf7ce59",
+            "X-RapidAPI-Key": "7018b8d3d3msh71e779ed740d32ap1c669djsnc8d2a4f27b2b",
             "X-RapidAPI-Host": "spotify23.p.rapidapi.com"
         }
         json_users = []
@@ -43,7 +44,19 @@ def users_generator():
     querystring = [
         {"id":"21gt55n63swkgukdfd5tvfyni","playlistLimit":"10","artistLimit":"10"},
         {"id":"11178273764","playlistLimit":"10","artistLimit":"10"},
-        {"id":"11162160084","playlistLimit":"10","artistLimit":"10"}
+        {"id":"11162160084","playlistLimit":"10","artistLimit":"10"},
+        {"id":"21gt55n63swkgukdfd5tvfyni","playlistLimit":"10","artistLimit":"10"},
+        {"id":"0ouulsc6ctbz5ltg2omihfqwt","playlistLimit":"10","artistLimit":"10"},
+        {"id":"312qstfzf22tj2gcjdiuvemhmwyq","playlistLimit":"10","artistLimit":"10"},
+        {"id":"v5mpy3p5frqopl4neewnvnj68","playlistLimit":"10","artistLimit":"10"},
+        #{"id":"11178306572","playlistLimit":"10","artistLimit":"10"},
+        #{"id":"alanee_marsh","playlistLimit":"10","artistLimit":"10"}
+        #{"id":"11181593357","playlistLimit":"10","artistLimit":"10"},
+        #{"id":"fvberon","playlistLimit":"10","artistLimit":"10"},
+        #{"id":"mifsvw3nqh8vzy1jnvf1nfx6d","playlistLimit":"10","artistLimit":"10"}
+        {"id":"11142140292","playlistLimit":"10","artistLimit":"10"},
+        {"id":"11168344927","playlistLimit":"10","artistLimit":"10"}
+        #{"id":"11131670622","playlistLimit":"10","artistLimit":"10"}
     ]
 
         #print(querystring)
@@ -157,7 +170,8 @@ def api_playlist(playlists):
     headers = {
         #"X-RapidAPI-Key": "6cfaaf4829msh6164b68312c045cp187fcejsn97b5941093c9",
         #"X-RapidAPI-Key": "c4d262eb60msh8ccfaa2c82311efp16ba53jsn09d3a0ac81f9",
-        "X-RapidAPI-Key": "96c00e4f36msh1047a4698f57499p101410jsn33304bf7ce59",
+        #"X-RapidAPI-Key": "96c00e4f36msh1047a4698f57499p101410jsn33304bf7ce59",
+        "X-RapidAPI-Key": "7018b8d3d3msh71e779ed740d32ap1c669djsnc8d2a4f27b2b",
         #"X-RapidAPI-Key": "66eeb3c0e6msh1496b538257ff74p154f1fjsnaa04326d626a",
         "X-RapidAPI-Host": "spotify23.p.rapidapi.com"
     }
