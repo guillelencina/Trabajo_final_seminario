@@ -48,7 +48,12 @@ Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publ
 * [Airflow (DAGs configurados en _users_spotify.py_)](dags/README.md)
   
     
-## Infraestructura  
+## Infraestructura/arquitectura  
+  
+  
+![](./images/bd_seminario.jpg)
+  
+
   
 Nuestro trabajo simula una instalación de producción con múltiples containers en Docker.
 _docker-compose.yaml_ contiene las definiciones y configuraciones para los siguientes servicios:
