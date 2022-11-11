@@ -44,13 +44,6 @@ Esta ultima información es exportada en un csv (export_colab.csv) para ser el i
   
 Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgres Operators y Python Operators)  
   
-  
-## Contenido
-
-* [Infraestructura/arquitectura](#Infraestructura)
-* [Instalación y puesta en marcha del ambiente](#Pasos-para-instalar)
-* [Airflow (DAGs configurados en _users_spotify.py_)](dags/README.md)
- 
     
 ## Infraestructura/arquitectura  
   
@@ -195,6 +188,8 @@ _cp /dags/csv/playlist_file.csv postgres-db-volume_
   
 Se intentó hacer un "bash-operator" sin éxito que resuelva ésta copia de manera automatizada en Airflow.  
 Nos encontramos con problemas debido a que posiblemente se necesiten permisos de root para realizar ésta acción en el volúmen de postgres.  
+  
+[Colab](https://colab.research.google.com/github/guillelencina/Trabajo_final_seminario/blob/master/red_spotify.ipynb#scrollTo=aazLisBb2CO-)
   
   
 ITBA &copy; 2021/2022  
