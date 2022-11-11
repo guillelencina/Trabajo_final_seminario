@@ -47,7 +47,7 @@ Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgre
   
 ## Contenido
 
-* [Infraestructura](#Infraestructura)
+* [Infraestructura/arquitectura](#Infraestructura)
 * [Instalación y puesta en marcha del ambiente](#Pasos-para-instalar)
 * [Jupyter Notebook](jupyter/notebook/README.md)
 * [Airflow (DAGs configurados en _users_spotify.py_)](dags/README.md)
@@ -56,29 +56,57 @@ Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgre
 ## Infraestructura/arquitectura  
   
   
-Nuestro trabajo simula una instalación de producción con múltiples containers en Docker.
-_docker-compose.yaml_ contiene las definiciones y configuraciones para los siguientes servicios:
+Nuestro _docker-compose.yaml_ contiene 3 servicios: 
 
-* Interfaz gráfica de Jupyter obtenida de la imagen arjones/pyspark:2.4.5. 
-
-    Una vez los containers estén en Running, podés ingresar desde acá -> [Jupyter](http://localhost:8888)
-
-* Interfaz gráfica de Airflow obtenida de la imagen -apache/airflow:2.4.1. 
-
-    Una vez los containers estén en Running, podés ingresar desde acá -> [Airflow](http://localhost:8080)
-
-* Motor de base de datos postgres obtenida de la imagen postgres:13.  
+* Un container para jupyter (quedó estable pero no pudimos usarlo porque no encontramos la forma de instalar las librerías en el docker compose).
   
----------------------------------------------------------------------------------------
-Pasos adicionales:  
+* Uno para Airflow.
 
-* Airflow tiene una BD por defecto. Se debe crear por primera vez la BD SEMINARIO y realizar la conexión manual a través de dbeaver: 
+* Y un tercero para postgres.  
 
-![](./images/bd_seminario.jpg)
+* ~~BDT~~:
+  
+Inicialmente quisimos usar DBT para la ingesta de los _.csvs_ generados por los archivos de python mediante el comando dbt seed, y adicionalmente hacer todas las transformaciones de los datos con ésta herramienta. Esto nos permitía crear modelos (tablas) declarando sentencias SQL y abstrayéndonos de la estructura de las tablas. Todas las pruebas con DBT funcionaron en entornos locales, pero a la hora de levantar el container tuvimos problemas para dejarlo estable (estado _exited_). 
+  
+La solución a ésto fue utilizar operadores de postgres directamente desde Airflow para realizar las ingestas de los _.csvs_ y las transformaciones de los datos.
+  
+  
+* Colab:  
+  
+Originalmente con el servicio de jupyter ibamos a obtener los datos haciendo una consulta directamente a la BD con la librería _sqlalchemy_. Sin embargo, al no poder instalar éstas librerías reemplazamos por Colab, que es una herramienta externa: por lo cual, se creó un phyton operator dentro de Airflow para realizar ésta consulta y generar un _csv._ que pueda ser importado desde Colab sin inconvenientes.
 
 
----------------------------------------------------------------------------------------
 
+
+
+
+Las librerías estandar usadas: [Numpy](https://numpy.org/), [pandas](https://pandas.pydata.org/), [seaborn](https://seaborn.pydata.org/) y [matplotlib](https://matplotlib.org/).  
+Para preprocesamiento: [Sklearn](https://scikit-learn.org/stable/).  
+Grafos: [Networkx](https://networkx.org/).  
+
+[La tabla final se obtiene desde la siguiente ruta:](dags/csv)
+
+[El colab se encuentra en el siguiente link:](https://colab.research.google.com/github/guillelencina/Trabajo_final_seminario/blob/master/red_spotify.ipynb#scrollTo=aazLisBb2CO-)
+
+* En primera instancia, se hace una segmentación de poblaciones de usuarios y artistas, por gustos y géneros musicales          respectivamente.  
+  
+* Como en todo dataset, hay limpieza de algunos datos que no son útiles para el análisis.  
+  
+* Luego alimentamos la bbdd y se consolida un dataset con la tabla en postgres.  
+  
+* Se hacen unos ajustes previos a la clusterización y luego iniciamos el ML con un _one hot encoder_ sobre la feature artista.  
+  
+* Luego, usamos k-means con cuatro clusters.  
+  
+* Se obtienen las etiquetas asignadas en lugar de los centroides y se mapean.  
+  
+* Aplicamos DBscan de con búsqueda de hiperparámetros.  
+  
+* También se incluye como alternativa para el algortitmo _affinity propagation_.  
+  
+* Por último, usamos grafos para visualizar y mostramos algunas métricas de los resultados.  
+  
+  
 
 ## Pasos para instalar
 
@@ -114,6 +142,15 @@ Pasos adicionales:
 * También los podés chequear en la interfaz gráfica de Docker.
 
 ![](./images/containers_running.jpg)
+
+
+
+* Airflow tiene una BD por defecto. Se debe crear por primera vez la BD SEMINARIO y realizar la conexión manual a través de dbeaver: 
+
+![](./images/bd_seminario.jpg)
+
+
+
 
 
 Sitios de interés: 
