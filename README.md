@@ -49,9 +49,8 @@ Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgre
 
 * [Infraestructura/arquitectura](#Infraestructura)
 * [Instalación y puesta en marcha del ambiente](#Pasos-para-instalar)
-* [Jupyter Notebook](jupyter/notebook/README.md)
 * [Airflow (DAGs configurados en _users_spotify.py_)](dags/README.md)
-  
+ 
     
 ## Infraestructura/arquitectura  
   
@@ -73,13 +72,9 @@ La solución a ésto fue utilizar operadores de postgres directamente desde Airf
   
 * Colab:  
   
-Originalmente con el servicio de jupyter ibamos a obtener los datos haciendo una consulta directamente a la BD con la librería _sqlalchemy_. Sin embargo, al no poder instalar éstas librerías reemplazamos por Colab, que es una herramienta externa: por lo cual, se creó un phyton operator dentro de Airflow para realizar ésta consulta y generar un _csv._ que pueda ser importado desde Colab sin inconvenientes.
-
-
-
-
-
-
+Originalmente con el servicio de jupyter ibamos a obtener los datos haciendo una consulta directamente a la BD con la librería _sqlalchemy_. Sin embargo, al no poder instalar éstas librerías reemplazamos por Colab, que es una herramienta externa: por lo cual, se creó un phyton operator dentro de Airflow para realizar ésta consulta y generar un _csv._ que pueda ser importado desde Colab sin inconvenientes.  
+  
+  
 Las librerías estandar usadas: [Numpy](https://numpy.org/), [pandas](https://pandas.pydata.org/), [seaborn](https://seaborn.pydata.org/) y [matplotlib](https://matplotlib.org/).  
 Para preprocesamiento: [Sklearn](https://scikit-learn.org/stable/).  
 Grafos: [Networkx](https://networkx.org/).  
