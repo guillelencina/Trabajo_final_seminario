@@ -103,7 +103,7 @@ Grafos: [Networkx](https://networkx.org/).
 
 4. Ejecutar una consola de Ubuntu.
 
-![](./images/ubuntu_consola.jpg)
+![](./images/ubuntu_consolacd..jpg)
 
 
 5. Ingresar a la carpeta: cd seminario_final-master
@@ -122,17 +122,19 @@ Grafos: [Networkx](https://networkx.org/).
 
 
 ## Configuraciones adicionales
-
-
-
-* Airflow tiene una BD por defecto. Se debe crear por primera vez la BD SEMINARIO y realizar la conexión manual a través de dbeaver: 
+  
+  
+* El servicio de postgres que se encuentra en el docker compose está siendo utilizado por Airflow como BD para su propia metadata. Para aprovechar éste servicio decidimos usar la misma conexión y generar una BD adicional para nuestro proyecto. Nos conectamos a través de dbeaver a la BD de Airflow por única vez, y desde allí se crea la BD SEMINARIO y dentro de esta, el esquema de staging: 
 
 ![](./images/bd_seminario.jpg)
-
-
-
-
-
+  
+  
+* Por única vez, en el webserver de Airflow se debe dar de alta la conexión a la BD generada:
+  
+![](./images/bd_airflow.jpg)
+  
+  
+  
 Sitios de interés: 
 
     * https://www.youtube.com/c/PeladoNerd  
