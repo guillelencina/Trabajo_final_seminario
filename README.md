@@ -84,9 +84,9 @@ Grafos: [Networkx](https://networkx.org/).
 [El colab se encuentra en el siguiente link:](https://colab.research.google.com/github/guillelencina/Trabajo_final_seminario/blob/master/red_spotify.ipynb#scrollTo=aazLisBb2CO-)
   
   
-## Pasos para instalar
+## Pasos para replicar el ambiente
 
-1. Clonar repo: git clone https://github.com/guillelencina/seminario_final.git
+1. Clonar repo: git clone https://github.com/guillelencina/Trabajo_final_seminario.git
 
 ![](./images/git_clone.jpg)
 
