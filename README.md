@@ -9,11 +9,11 @@ Pedro Ferrari | pedro@muttdata.ai
 Juan Martín Pampliega | jpamplie@itba.edu.ar  
 
 Estudiantes:      
-Guillermo Lencina | glencina@itba.edu.ar    
-Nicolas Arosteguy | narosteguy@itba.edu.ar    
-Alexander Chavez | achavezmontano@itba.edu.ar   
+Guillermo Lencina | glencina@itba.edu.ar | [LinkedIn](https://www.linkedin.com/in/guillermolencina/)     
+Nicolas Arosteguy | narosteguy@itba.edu.ar | [LinkedIn](https://www.linkedin.com/in/nicol%C3%A1s-arosteguy-a564a97a/)   
+Alexander Chavez | achavezmontano@itba.edu.ar | [LinkedIn](https://www.linkedin.com/in/alexchavez1980/)      
   
-
+  
 ## Objetivo    
   
 Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extracción, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.  
@@ -157,60 +157,44 @@ En _create_tables.sql_ se encuentra la creación de las tablas:
   
 Esquema _staging_ para almacenar los _csvs_ sin transformar, resultado de las llamadas a las APIs: 
   
-staging.users_file  
-staging.playlist_file  
+_staging.users_file_  
+_staging.playlist_file_  
 
 Esquema _public_ para simular un entorno mas formal productivo y almacenar los datos transformados y finales:  
   
-public.users  
-public.playlists  
-public.playlists_artists  
-public.traspuesta_artista_user (esta tabla es la preparada para hacer el input del Colab)  
+_public.users_  
+_public.playlists_  
+_public.playlists_artists_  
+_public.traspuesta_artista_user_ (esta tabla es la preparada para hacer el input del Colab)  
 
-* api_extract_users: Es un _pythonOperator_ que ejecuta la primer llamada a la API de usuarios preseleccionados manualmente.  
+* **api_extract_users**: Es un _pythonOperator_ que ejecuta la primer llamada a la API de usuarios preseleccionados manualmente.  
 Queda como resultado el archivo _users_file.csv_.  
   
-* insert_staging_users_file: Es un _postgresOperator_ que inserta el _users_file.csv_ en la tabla staging.users_file.
+* **insert_staging_users_file**: Es un _postgresOperator_ que inserta el _users_file.csv_ en la tabla staging.users_file.
     
-* insert_users: _postgresOperator_ que extrae información relevante de staging.users_file e insertamos en la tabla de usuarios.  
+* **insert_users**: _postgresOperator_ que extrae información relevante de staging.users_file e insertamos en la tabla de usuarios.  
   
-* insert_playlists_users: _postgresOperator_ que extrae información relevante de la playlist de staging.users_file e insertamos en la tabla de playlist.  
+* **insert_playlists_users**: _postgresOperator_ que extrae información relevante de la playlist de staging.users_file e insertamos en la tabla de playlist.  
     
-* api_extract_playlist: Es un _pythonOperator_.  
+* **api_extract_playlist**: Es un _pythonOperator_.  
 Toma de la BD los IDs de las playlist cargados previamente y ejecuta la segunda llamada a la API, en este caso de playlist.  
 Queda como resultado el archivo _playlist_file.csv_.
     
-* insert_staging_playlist_file: Es un _postgresOperator_ que inserta el _playlist_file.csv_ en la tabla staging.playlist_file.  
+* **insert_staging_playlist_file**: Es un _postgresOperator_ que inserta el _playlist_file.csv_ en la tabla staging.playlist_file.  
     
-* insert_playlist_artist: _postgresOperator_ que inserta en la tabla public.playlists_artists los IDs de las playlist y los artistas que la componen.  
+* **insert_playlist_artist**: _postgresOperator_ que inserta en la tabla public.playlists_artists los IDs de las playlist y los artistas que la componen.  
     
-* insert_traspuesta_artista_userid: _postgresOperator_ que inserta en la tabla public.traspuesta_artista_user los IDs de usuarios vinculados a los nombres de los artistas que se hayan encontrado en sus playlist.
+* **insert_traspuesta_artista_userid**: _postgresOperator_ que inserta en la tabla public.traspuesta_artista_user los IDs de usuarios vinculados a los nombres de los artistas que se hayan encontrado en sus playlist.
   
-* export_traspuesta_to_cvs_i: Es un _pythonOperator_ que consulta la tabla public.traspuesta_artista_user y genera el export_colab.csv para ser el input del Colab.  
+* **export_traspuesta_to_cvs_i**: Es un _pythonOperator_ que consulta la tabla public.traspuesta_artista_user y genera el export_colab.csv para ser el input del Colab.  
   
-Disclaimer: Los operadores insert_staging_users_file insert_staging_playlist_file requieren de un copy manual vía linux:  
+**Disclaimer**: Los operadores insert_staging_users_file insert_staging_playlist_file requieren de un copy manual vía linux:  
   
-cp /dags/csv/users_file.csv postgres-db-volume
-cp /dags/csv/playlist_file.csv postgres-db-volume  
-
+_cp /dags/csv/users_file.csv postgres-db-volume_  
+_cp /dags/csv/playlist_file.csv postgres-db-volume_  
+  
 Se intentó hacer un "bash-operator" sin éxito que resuelva ésta copia de manera automatizada en Airflow.  
 Nos encontramos con problemas debido a que posiblemente se necesiten permisos de root para realizar ésta acción en el volúmen de postgres.  
-      
-      
-Sitios de interés: 
-
-    * https://www.youtube.com/c/PeladoNerd  
-    * https://www.youtube.com/c/HolaMundoDev  
-    * https://www.youtube.com/c/NetworkChuck
-    * Postgres + PGAdmin : https://www.youtube.com/watch?v=uKlRp6CqpDg  
-
-
-## Acerca de
-
-Nicolás Arostegui | [LinkedIn](https://www.linkedin.com/in/nicol%C3%A1s-arosteguy-a564a97a/) 
-
-Guillermo Lencina | [LinkedIn](https://www.linkedin.com/in/guillermolencina/) 
-
-Alexander Chavez | [LinkedIn](https://www.linkedin.com/in/alexchavez1980/) 
-
-ITBA &copy; 2021/2022 
+  
+  
+ITBA &copy; 2021/2022  
