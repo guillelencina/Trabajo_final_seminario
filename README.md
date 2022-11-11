@@ -103,7 +103,7 @@ Grafos: [Networkx](https://networkx.org/).
 
 4. Ejecutar una consola de Ubuntu.
 
-![](./images/ubuntu_consolacd..jpg)
+![](./images/ubuntu_consola.jpg)
 
 
 5. Ingresar a la carpeta: cd seminario_final-master
