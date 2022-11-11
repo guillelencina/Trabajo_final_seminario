@@ -51,7 +51,7 @@ Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publ
 ## Infraestructura/arquitectura  
   
   
-![](./images/bd_seminario.jpg)
+![](./images/arquitectura.jpg)
   
 
   
