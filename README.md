@@ -96,7 +96,7 @@ Grafos: [Networkx](https://networkx.org/).
 ![](./images/docker_desktop_ini.jpg)
 
 
-3. Desde VSCode, abrir la carpeta _seminario_final-master_.
+3. Desde VSCode, abrir la carpeta _Trabajo_final_seminario_.
 
 ![](./images/folder_seminario_final.jpg)
 
