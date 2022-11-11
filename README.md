@@ -13,6 +13,11 @@ Guillermo Lencina | glencina@itba.edu.ar
 Nicolas Arosteguy | narosteguy@itba.edu.ar    
 Alexander Chavez | achavezmontano@itba.edu.ar   
   
+
+## Objetivo    
+  
+Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extraccióon, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.  
+  
   
 ## Resumen
 
@@ -35,11 +40,6 @@ Esta ultima información es exportada en un csv (export_colab.csv) para ser el i
 Todas estas tareas estarán osquestadas mediante operadores de airflow ( Postgres Operators y Python Operators)  
   
   
-## Objetivo    
-  
-Obtener datos sobre que artistas que escuchan los usuarios en sus playlists publicas con el fin de prototipar la extraccióon, el procesamiento, y los análisis de la información para un futuro sistema de recomendacion basado en las coincidencias de artistas entre los usuarios.
-
-
 ## Contenido
 
 * [Infraestructura](#Infraestructura)
